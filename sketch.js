@@ -10,6 +10,7 @@ var Outer_Circle_Width;
 var Follow_Speed;
 var minDim;
 var timeStartup;
+var showText;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -23,7 +24,7 @@ function setup() {
   Follow_Speed = 0.15;
   textFont('calibri');
   timeStartup = second();
-  print(timeStartup);
+  showText = true;
   resize()
 }
 function resize() {
@@ -36,6 +37,10 @@ function resize() {
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   resize();
+}
+
+function mouseClicked() {
+  showText = !showText;
 }
 
 function getVector(index, radius) {
@@ -153,7 +158,7 @@ function draw() {
   orbitCircle(orbitAngle, scale, factor - 1);
   orbitCircle(orbitAngle2, scale, factor / 2);
   
-  
+  if(showText) {
   textAlign(LEFT);
   var showInfo = mouseY > height * 0.9;
   var textXOffset = width / 2 * 0.9;
@@ -179,7 +184,9 @@ function draw() {
     text(toFixed(factor - 1, 1), ox1, oy1);
     text(toFixed(factor / 2, 1), ox2, oy2);
   }
+  }
 
+  textAlign(CENTER, CENTER);
   //second counter
   var timeAngle = (orbitAngle - HALF_PI) % TWO_PI
   var timeRadiusOff = abs(sin(millis() * PI / 1000)) / 10
